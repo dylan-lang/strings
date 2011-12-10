@@ -6,7 +6,7 @@ Copyright: This code is in the public domain.
 
 define library strings
   use common-dylan;
-  use functional-dylan,
+  use dylan,
     import: { dylan-extensions };
   use io,
     import: { streams, format-out };
