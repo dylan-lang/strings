@@ -8,7 +8,6 @@ define library strings
   use common-dylan;
   use dylan,
     import: { dylan-extensions };
-  use regular-expressions;
 
   export strings;
 end library strings;
