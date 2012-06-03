@@ -405,8 +405,8 @@ define strings function-test hexadecimal-digit? ()
   for (char in "0123456789abcdfeABCDEF")
     check-true(fmt("%s", char), hexadecimal-digit?(char));
   end;
-  check-false("g", decimal-digit?('g'));
-  check-false("G", decimal-digit?('G'));
+  check-false("g", hexadecimal-digit?('g'));
+  check-false("G", hexadecimal-digit?('G'));
 end function-test hexadecimal-digit?;
 
 
