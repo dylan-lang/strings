@@ -9,7 +9,9 @@ define library strings
   use dylan,
     import: { dylan-extensions };
 
-  export strings;
+  export
+    strings,
+    %strings;    // for regular-expressions
 end library strings;
 
 
@@ -97,5 +99,6 @@ define module %strings
               <format-string-condition>
               };
   use strings;            // Use API module
+  export make-substring-positioner;
 end module %strings;
 
