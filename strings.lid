@@ -1,3 +1,4 @@
+Target-Type: dll
 library: strings
 files: library
        strings
