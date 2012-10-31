@@ -415,8 +415,8 @@ end method ends-with?;
 //// Case conversions
 
 define sealed generic lowercase
-    (string-or-char :: <string-or-char>, #key)
- => (new-string-or-char :: <string-or-char>);
+    (string-or-character :: <string-or-char>, #key)
+ => (new-string-or-character :: <string-or-char>);
 
 define method lowercase
     (char :: <character>, #key) => (new-char :: <character>)
@@ -433,8 +433,8 @@ end method lowercase;
   
 
 define sealed generic lowercase!
-    (string-or-char :: <string-or-char>, #key)
- => (string-or-char :: <string-or-char>);
+    (string-or-character :: <string-or-char>, #key)
+ => (string-or-character :: <string-or-char>);
 
 define method lowercase!
     (char :: <character>, #key) => (new-char :: <character>)
@@ -455,8 +455,8 @@ end method lowercase!;
 
 
 define sealed generic uppercase
-    (string-or-char :: <string-or-char>, #key)
- => (new-string-or-char :: <string-or-char>);
+    (string-or-character :: <string-or-char>, #key)
+ => (new-string-or-character :: <string-or-char>);
 
 define method uppercase
     (char :: <character>, #key) => (new-char :: <character>)
@@ -472,8 +472,8 @@ end method uppercase;
 
 
 define sealed generic uppercase!
-    (string-or-char :: <string-or-char>, #key)
- => (string-or-char :: <string-or-char>);
+    (string-or-character :: <string-or-char>, #key)
+ => (string-or-character :: <string-or-char>);
 
 define method uppercase!
     (char :: <character>, #key) => (new-char :: <character>)
