@@ -215,19 +215,19 @@ end method compile-substring;
 
 
 define generic replace-substrings
-    (string :: <string>, pattern :: <string>, replacement :: <string>,
+    (big :: <string>, pattern :: <string>, replacement :: <string>,
      #key count, start, end: _end, ignore-case?)
  => (new-string :: <string>);
 
 define sealed method replace-substrings
-    (string :: <string>, pattern :: <string>, replacement :: <string>,
+    (big :: <string>, pattern :: <string>, replacement :: <string>,
      #key count :: false-or(<integer>),
           start :: <integer> = 0,
-          end: _end :: <integer> = string.size,
+          end: _end :: <integer> = big.size,
           ignore-case? :: <boolean>)
  => (new-string :: <string>)
   let positioner = make-substring-positioner(pattern, ~ignore-case?);
-  do-replacement(positioner, string, pattern, replacement, start, _end, count, #f, ignore-case?)
+  do-replacement(positioner, big, pattern, replacement, start, _end, count, #f, ignore-case?)
 end method replace-substrings;
 
 // The local method expand-replace-sequence probably generates
