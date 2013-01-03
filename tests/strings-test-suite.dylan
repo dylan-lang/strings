@@ -371,6 +371,7 @@ define strings function-test count-substrings ()
                #(2, "x", ""),
                #(1, "x", "x"),
                #(2, "xxxxx", "xx"), // check non-overlap
+               #(1, "abcabc", "abc", end:, 5),  // check non-overlap
                #(1, "xxxxx", "xx", start:, 1, end:, 4),
                #(0, "xxx", "X"),
                #(3, "xxx", "X", ignore-case?:, #t));
@@ -570,6 +571,8 @@ define strings function-test split-lines ()
   check-equal("f", split-lines("a"), #["a"]);
   check-equal("g", split-lines("a\r\rb"), #["a", "", "b"]);
   check-equal("h", split-lines("a\r\rb", remove-if-empty?: #t), #["a", "b"]);
+  check-equal("i", split-lines("a\n\rb"), #["a", "", "b"]);
+  check-equal("j", split-lines("\na"), #["", "a"]);
 end function-test split-lines;
 
 
