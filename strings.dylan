@@ -1,8 +1,5 @@
 Module: %strings
 
-
-// TODO(cgay): optimization (remove uses of %slice, use dispatch colorization)
-
 // TODO(cgay): Anything related to unicode.
 
 
