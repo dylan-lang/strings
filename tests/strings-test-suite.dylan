@@ -6,13 +6,6 @@ Author:    Carl Gay
 define constant fmt = format-to-string;
 define constant <string-or-char> = type-union(<string>, <character>);
 
-
-
-define library-spec strings ()
-  module strings;
-end library-spec strings;
-
-
 define module-spec strings ()
   sealed generic-function alphabetic? (<string-or-char>) => (<boolean>);
   sealed generic-function alphanumeric? (<string-or-char>) => (<boolean>);
@@ -576,14 +569,6 @@ define strings function-test split-lines ()
 end function-test split-lines;
 
 
-define method main () => ()
-  let filename = locator-name(as(<file-locator>, application-name()));
-  if (split(filename, ".")[0] = "strings-test-suite")
-    run-test-application(strings-test-suite);
-  end;
-end method main;
-
-begin
-  main()
-end;
-
+define library-spec strings ()
+  module strings;
+end library-spec strings;

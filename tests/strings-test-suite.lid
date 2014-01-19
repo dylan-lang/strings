@@ -1,3 +1,3 @@
 library: strings-test-suite
-files:	library
+files:	strings-test-suite-library
 	strings-test-suite
