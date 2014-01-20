@@ -568,7 +568,29 @@ define strings function-test split-lines ()
   check-equal("j", split-lines("\na"), #["", "a"]);
 end function-test split-lines;
 
+////
+//// Benchmarks
+////
+
+// string-compare, <string>, char-compare
+define test string-compare-with-defaults-benchmark (tags: #("benchmark"))
+  let string = make(<string>, size: 10000, fill: 'x');
+  for (i from 0 to 10000)
+    assert-equal(0, string-compare(string, string));
+  end;
+end test string-compare-with-defaults-benchmark;
+
+// string-compare, <string>, char-compare-ic
+define test string-compare-ic-benchmark (tags: #("benchmark"))
+  let string = make(<string>, size: 10000, fill: 'x');
+  for (i from 0 to 10000)
+    assert-equal(0, string-compare(string, string, test: char-compare-ic));
+  end;
+end test string-compare-ic-benchmark;
+
 
 define library-spec strings ()
   module strings;
+  test string-compare-with-defaults-benchmark;
+  test string-compare-ic-benchmark;
 end library-spec strings;

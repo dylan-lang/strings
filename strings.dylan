@@ -227,8 +227,12 @@ end;
 
 //// Character comparisons
 
+// Note that the one-of result type causes the compiler to insert a
+// check-type(result, <integer>) in some places.  Might want to type
+// these as <integer> instead.
 define inline function char-compare
-    (char1 :: <character>, char2 :: <character>) => (result :: one-of(-1, 0, 1))
+    (char1 :: <character>, char2 :: <character>)
+ => (result :: one-of(-1, 0, 1))
   let c1 :: <integer> = as(<integer>, char1);
   let c2 :: <integer> = as(<integer>, char2);
   xif(c1 == c2, 0, xif(c1 < c2, -1, 1))
@@ -252,7 +256,7 @@ end;
 
 // Compare string1 and string2, returning -1 if string1 < string2, 0
 // if string1 = string2, and 1 if string1 > string2.
-define sealed generic  string-compare
+define sealed generic string-compare
     (string1 :: <string>, string2 :: <string>,
      #key start1, end1, start2, end2, test)
  => (result :: one-of(-1, 0, 1));
@@ -266,7 +270,39 @@ define method string-compare
   %string-compare(string1, string2, start1, end1, start2, end2, test)
 end;
 
-define inline function %string-compare
+
+define sealed generic %string-compare
+    (string1 :: <string>, string2 :: <string>,
+     start1 :: <integer>, end1 :: <integer>,
+     start2 :: <integer>, end2 :: <integer>,
+     test :: <function>)
+ => (result :: one-of(-1, 0, 1));
+
+// A macro to inline specific comparator functions for the fast path,
+// namely char-compare and char-compare-ic.
+define macro %string-compare-body
+  { %string-compare-body(?test:name,
+                         ?string1:expression, ?string2:expression,
+                         ?start1:expression, ?end1:expression,
+                         ?start2:expression, ?end2:expression)
+  } => {
+    iterate loop (i1 :: <integer> = ?start1, i2 :: <integer> = ?start2)
+      case
+        i1 = ?end1 =>
+          xif(i2 = ?end2, 0, -1);
+        i2 = ?end2 =>
+          1;
+        otherwise =>
+          let result :: <integer> = ?test(?string1[i1], ?string2[i2]);
+          xif(result == 0,
+              loop(i1 + 1, i2 + 1),
+              result);
+      end case
+    end iterate
+  }
+end macro %string-compare-body;
+
+define method %string-compare
     (string1 :: <string>, string2 :: <string>,
      start1 :: <integer>, end1 :: <integer>,
      start2 :: <integer>, end2 :: <integer>,
@@ -274,20 +310,28 @@ define inline function %string-compare
  => (result :: one-of(-1, 0, 1))
   range-check(string1, string1.size, start1, end1);
   range-check(string2, string2.size, start2, end2);
-  iterate loop (i1 :: <integer> = start1, i2 :: <integer> = start2)
-    case
-      i1 = end1 =>
-        xif(i2 = end2, 0, -1);
-      i2 = end2 =>
-        1;
-      otherwise =>
-        let result :: <integer> = test(string1[i1], string2[i2]);
-        xif(result == 0,
-            loop(i1 + 1, i2 + 1),
-            result);
-    end case
-  end iterate
-end function %string-compare;
+  %string-compare-body(test, string1, string2, start1, end1, start2, end2)
+end method %string-compare;
+
+define method %string-compare
+    (string1 :: <byte-string>, string2 :: <byte-string>,
+     start1 :: <integer>, end1 :: <integer>,
+     start2 :: <integer>, end2 :: <integer>,
+     test :: <function>)
+ => (result :: one-of(-1, 0, 1))
+  range-check(string1, string1.size, start1, end1);
+  range-check(string2, string2.size, start2, end2);
+  select (test)
+    char-compare =>
+      %string-compare-body(char-compare,
+                           string1, string2, start1, end1, start2, end2);
+    char-compare-ic =>
+      %string-compare-body(char-compare-ic,
+                           string1, string2, start1, end1, start2, end2);
+    otherwise =>
+      %string-compare-body(test, string1, string2, start1, end1, start2, end2);
+  end select
+end method %string-compare;
 
 
 define sealed generic  string-equal?
