@@ -572,25 +572,43 @@ end function-test split-lines;
 //// Benchmarks
 ////
 
-// string-compare, <string>, char-compare
-define test string-compare-with-defaults-benchmark (tags: #("benchmark"))
+define test string-compare-benchmark (tags: #("benchmark"))
+  assert-true(#t);
   let string = make(<string>, size: 10000, fill: 'x');
   for (i from 0 to 10000)
-    assert-equal(0, string-compare(string, string));
+    string-compare(string, string);
   end;
-end test string-compare-with-defaults-benchmark;
+end test string-compare-benchmark;
 
-// string-compare, <string>, char-compare-ic
 define test string-compare-ic-benchmark (tags: #("benchmark"))
+  assert-true(#t);
   let string = make(<string>, size: 10000, fill: 'x');
   for (i from 0 to 10000)
-    assert-equal(0, string-compare(string, string, test: char-compare-ic));
+    string-compare(string, string, test: char-compare-ic);
   end;
 end test string-compare-ic-benchmark;
+
+define test string-equal?-benchmark (tags: #("benchmark"))
+  assert-true(#t);
+  let string = make(<string>, size: 10000, fill: 'x');
+  for (i from 1 to 10000)
+    string-equal?(string, string);
+  end;
+end test string-equal?-benchmark;
+
+define test string-equal-ic?-benchmark (tags: #("benchmark"))
+  assert-true(#t);
+  let string = make(<string>, size: 10000, fill: 'x');
+  for (i from 1 to 10000)
+    string-equal-ic?(string, string);
+  end;
+end test string-equal-ic?-benchmark;
 
 
 define library-spec strings ()
   module strings;
-  test string-compare-with-defaults-benchmark;
+  test string-compare-benchmark;
   test string-compare-ic-benchmark;
+  test string-equal?-benchmark;
+  test string-equal-ic?-benchmark;
 end library-spec strings;
