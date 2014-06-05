@@ -5,6 +5,7 @@ Author:    Carl Gay
 
 define library strings-test-suite
   use common-dylan;
+  use io;
   use regular-expressions;
   use strings;
   use system;
@@ -15,6 +16,7 @@ end;
 
 define module strings-test-suite
   use common-dylan;
+  use format;
   use regular-expressions,
     import: { compile-regex,
               match-group };
