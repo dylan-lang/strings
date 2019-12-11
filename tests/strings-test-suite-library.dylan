@@ -5,13 +5,13 @@ Author:    Carl Gay
 
 define library strings-test-suite
   use common-dylan;
-  use io;
+  use io,
+    import: { format };
   use regular-expressions;
   use strings;
-  use system;
+  use system,
+    import: { locators };
   use testworks;
-  use testworks-specs;
-  export strings-test-suite;
 end;
 
 define module strings-test-suite
@@ -25,7 +25,5 @@ define module strings-test-suite
     import: { locator-name,
               <file-locator> };
   use testworks;
-  use testworks-specs;
-  export strings-test-suite;
 end;
 

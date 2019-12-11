@@ -6,6 +6,5 @@ define library strings-test-suite-app
 end;
 
 define module strings-test-suite-app
-  use strings-test-suite;
   use testworks;
 end;
