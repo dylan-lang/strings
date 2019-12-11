@@ -9,7 +9,7 @@ define constant fmt = format-to-string;
 //// Character comparisons
 ////
 
-define strings function-test char-compare ()
+define test test-char-compare ()
   for (item in #(#('a', 'a', 0),
                  #('A', 'A', 0),
                  #('a', 'b', -1),
@@ -21,9 +21,9 @@ define strings function-test char-compare ()
                 char-compare(c1, c2),
                 expected);
   end;
-end;
+end test;
 
-define strings function-test char-compare-ic ()
+define test test-char-compare-ic ()
   for (item in #(#('a', 'a', 0),
                  #('A', 'A', 0),
                  #('a', 'b', -1),
@@ -35,12 +35,12 @@ define strings function-test char-compare-ic ()
                 char-compare-ic(c1, c2),
                 expected);
   end;
-end;
+end test;
 
-define strings function-test char-equal-ic? ()
+define test test-char-equal-ic? ()
   check-true("a", char-equal-ic?('a', 'a'));
   check-true("b", char-equal-ic?('a', 'A'));
-end;
+end test;
 
 
 
@@ -48,7 +48,7 @@ end;
 //// Strings comparisons
 ////
 
-define strings function-test string-compare ()
+define test test-string-compare ()
   for (item in #(#(0, "", ""),
                  #(0, "abc", "abc"),
                  #(0, "xabcx", "yabcy", start1:, 1, end1:, 4, start2:, 1, end2:, 4),
@@ -57,9 +57,9 @@ define strings function-test string-compare ()
     let (expected, #rest args) = apply(values, item);
     check-equal(fmt("%s", item), expected, apply(string-compare, args));
   end;
-end function-test string-compare;
+end test;
 
-define strings function-test string-equal? ()
+define test test-string-equal? ()
   local method eq (s1, s2, #rest args)
           check-true(fmt("string-equal?(%=, %=, ,@%=)", s1, s2, args),
                      apply(string-equal?, s1, s2, args))
@@ -81,9 +81,9 @@ define strings function-test string-equal? ()
   eq("cd", "abcd", start2: 2);
   check-false("a", string-equal?("a", "b"));
   check-false("a", string-equal?("a", "b", start1: 1));
-end function-test string-equal?;
+end test;
 
-define strings function-test string-equal-ic? ()
+define test test-string-equal-ic? ()
   // This is basically a copy of the test for string-equal? with some
   // arguments changed to uppercase.
   local method eq (s1, s2, #rest args)
@@ -107,10 +107,10 @@ define strings function-test string-equal-ic? ()
   eq("cd", "ABCD", start2: 2);
   check-false("a", string-equal-ic?("A", "b"));
   check-false("b", string-equal-ic?("A", "b", start1: 1));
-end function-test string-equal-ic?;
+end test;
 
 
-define strings function-test string-less? ()
+define test test-string-less? ()
   local method less (s1, s2, #rest args)
           check-true(fmt("string-less?(%=, %=, ,@%=)", s1, s2, args),
                      apply(string-less?, s1, s2, args))
@@ -122,16 +122,16 @@ define strings function-test string-less? ()
   less("aBc", "abc");
   less("aaa", "b");
   less("aaa", "bbbb");
-end function-test string-less?;
+end test;
 
-define strings function-test string-less-ic? ()
+define test test-string-less-ic? ()
   check-true("a", string-less-ic?("a", "B"));
   check-true("b", string-less-ic?("A", "B"));
   check-true("c", string-less-ic?("A", "b"));
-end function-test string-less-ic?;
+end test;
 
 
-define strings function-test string-greater? ()
+define test test-string-greater? ()
   local method gr8r (s1, s2, #rest args)
           check-true(fmt("string-greater?(%=, %=, ,@%=)", s1, s2, args),
                      apply(string-greater?, s1, s2, args))
@@ -143,16 +143,16 @@ define strings function-test string-greater? ()
   gr8r("abc", "aBc");
   gr8r("b", "aaa");
   gr8r("bbbb", "aaa");
-end function-test string-greater?;
+end test;
 
-define strings function-test string-greater-ic? ()
+define test test-string-greater-ic? ()
   check-true("a", string-greater-ic?("B", "a"));
   check-true("b", string-greater-ic?("B", "A"));
   check-true("c", string-greater-ic?("b", "A"));
-end function-test string-greater-ic?;
+end test;
 
 
-define strings function-test ends-with? ()
+define test test-ends-with? ()
   local method ew (s1, s2, #rest args)
           check-true(fmt("ends-with?(%=, %=, ,@%=)", s1, s2, args),
                      apply(ends-with?, s1, s2, args))
@@ -162,9 +162,9 @@ define strings function-test ends-with? ()
   ew("abc", "bc");
   ew("abc", "ABC", test: char-compare-ic);
   ew("abc", "bC", test: char-compare-ic);
-end function-test ends-with?;
+end test;
 
-define strings function-test starts-with? ()
+define test test-starts-with? ()
   local method sw (s1, s2, #rest args)
           check-true(fmt("starts-with?(%=, %=, ,@%=)", s1, s2, args),
                      apply(starts-with?, s1, s2, args))
@@ -174,14 +174,14 @@ define strings function-test starts-with? ()
   sw("abc", "ab");
   sw("abc", "ABC", test: char-compare-ic);
   sw("abc", "Ab", test: char-compare-ic);
-end function-test starts-with?;
+end test;
 
 
 ////
 //// Character classes
 ////
 
-define strings function-test graphic? ()
+define test test-graphic? ()
   for (code from 0 to 255)
     let char = as(<character>, code);
     if (char >= ' ' & char <= '~')
@@ -190,9 +190,9 @@ define strings function-test graphic? ()
       check-false(fmt("~graphic?(%c)", char), graphic?(char));
     end;
   end;
-end function-test graphic?;
+end test;
 
-define strings function-test alphanumeric? ()
+define test test-alphanumeric? ()
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   for (code from 0 to 255)
     let char = as(<character>, code);
@@ -202,9 +202,9 @@ define strings function-test alphanumeric? ()
       check-false(fmt("~alphanumeric?(%=)", char), alphanumeric?(char));
     end;
   end;
-end function-test alphanumeric?;
+end test;
 
-define strings function-test alphabetic? ()
+define test test-alphabetic? ()
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   for (code from 0 to 255)
     let char = as(<character>, code);
@@ -214,9 +214,9 @@ define strings function-test alphabetic? ()
       check-false(fmt("~alphabetic?(%=)", char), alphabetic?(char));
     end;
   end;
-end function-test alphabetic?;
+end test;
 
-define strings function-test control? ()
+define test test-control? ()
   // control = ~(white | printable)
   for (code from 0 to 31)
     let char = as(<character>, code);
@@ -230,9 +230,9 @@ define strings function-test control? ()
     let char = as(<character>, code);
     check-true(fmt("control?(%=)", char), control?(char));
   end;
-end function-test control?;
+end test;
 
-define strings function-test printable? ()
+define test test-printable? ()
   // printable = (whitespace | graphic)
   for (code from 0 to 31)
     let char = as(<character>, code);
@@ -246,14 +246,14 @@ define strings function-test printable? ()
     let char = as(<character>, code);
     check-false(fmt("~printable?(%=)", char), printable?(char));
   end;
-end function-test printable?;
+end test;
 
 
 ////
 //// Substrings
 ////
 
-define strings function-test find-substring ()
+define test test-find-substring ()
   let data = #(#(0, "", ""),
                #(0, "x", ""),
                #(0, "x", "x"),
@@ -266,9 +266,9 @@ define strings function-test find-substring ()
     let (expected, #rest args) = apply(values, item);
     check-equal(fmt("%s", args), apply(find-substring, args), expected);
   end;
-end function-test find-substring;
+end test;
 
-define strings function-test replace-substrings ()
+define test test-replace-substrings ()
   check-equal("simple", replace-substrings("zig", "i", "a"), "zag");
   check-equal("count = #f", replace-substrings("zig zig", "i", "a"), "zag zag");
   check-equal("case sensitive", replace-substrings("zIg", "i", "a"), "zIg");
@@ -276,9 +276,9 @@ define strings function-test replace-substrings ()
   check-equal("count = 1", replace-substrings("zig zig", "ig", "ipped", count: 1), "zipped zig");
   check-equal("start", replace-substrings("zig zig", "zi", "pi", start: 1), "zig pig");
   check-equal("end", replace-substrings("zig zig", "zi", "pi", end: 5), "pig zig");
-end function-test replace-substrings;
+end test;
 
-define strings function-test count-substrings ()
+define test test-count-substrings ()
   let data = #(#(1, "", ""),
                #(2, "x", ""),
                #(1, "x", "x"),
@@ -291,66 +291,66 @@ define strings function-test count-substrings ()
     let (expected, #rest args) = apply(values, item);
     check-equal(fmt("%s", args), apply(count-substrings, args), expected);
   end;
-end function-test count-substrings;
+end test;
 
 
 ////
 //// Digits
 ////
 
-define strings function-test octal-digit? ()
+define test test-octal-digit? ()
   for (char in "01234567")
     check-true(fmt("%s", char), octal-digit?(char));
   end;
   check-false("8", octal-digit?('8'));
   check-false("a", octal-digit?('a'));
-end function-test octal-digit?;
+end test;
 
-define strings function-test decimal-digit? ()
+define test test-decimal-digit? ()
   for (char in "0123456789")
     check-true(fmt("%s", char), decimal-digit?(char));
   end;
   check-false("a", decimal-digit?('a'));
   check-false("A", decimal-digit?('A'));
-end function-test decimal-digit?;
+end test;
 
-define strings function-test hexadecimal-digit? ()
+define test test-hexadecimal-digit? ()
   for (char in "0123456789abcdfeABCDEF")
     check-true(fmt("%s", char), hexadecimal-digit?(char));
   end;
   check-false("g", hexadecimal-digit?('g'));
   check-false("G", hexadecimal-digit?('G'));
-end function-test hexadecimal-digit?;
+end test;
 
 
 ////
 //// Padding
 ////
 
-define strings function-test pad-left ()
+define test test-pad-left ()
   check-equal("a", pad-left("x", 3), "  x");
   check-equal("b", pad-left("xx", 1), "xx");
   check-equal("c", pad-left("x", 2, fill: '-'), "-x");
-end function-test pad-left;
+end test;
 
-define strings function-test pad ()
+define test test-pad ()
   check-equal("a", pad("x", 3), " x ");
   check-equal("b", pad("xx", 1), "xx");
   check-equal("c", pad("x", 3, fill: '-'), "-x-");
-end function-test pad;
+end test;
 
-define strings function-test pad-right ()
+define test test-pad-right ()
   check-equal("a", pad-right("x", 3), "x  ");
   check-equal("b", pad-right("xx", 1), "xx");
   check-equal("c", pad-right("x", 2, fill: '-'), "x-");
-end function-test pad-right;
+end test;
 
 
 ////
 //// Character case
 ////
 
-define strings function-test lowercase! ()
+define test test-lowercase! ()
   for (item in #(#("", ""),
                  #("a", "a"),
                  #("E", "e"),
@@ -362,9 +362,9 @@ define strings function-test lowercase! ()
     check-true(fmt("lowercase! %= retains identity", before),
                lowercase!(before) == before);
   end;
-end function-test lowercase!;
+end test;
 
-define strings function-test lowercase ()
+define test test-lowercase ()
   for (item in #(#("", ""),
                  #("a", "a"),
                  #("A", "a"),
@@ -374,9 +374,9 @@ define strings function-test lowercase ()
     let (before, expected) = apply(values, item);
     check-equal(fmt("lowercase %=", before), expected, lowercase(before));
   end;
-end function-test lowercase;
+end test;
 
-define strings function-test uppercase! ()
+define test test-uppercase! ()
   for (item in #(#("", ""),
                  #("A", "A"),
                  #("a", "A"),
@@ -388,9 +388,9 @@ define strings function-test uppercase! ()
     check-true(fmt("uppercase! %= retains identity", before),
                uppercase!(before) == before);
   end;
-end function-test uppercase!;
+end test;
 
-define strings function-test uppercase ()
+define test test-uppercase ()
   for (item in #(#("", ""),
                  #("a", "A"),
                  #("A", "A"),
@@ -400,28 +400,28 @@ define strings function-test uppercase ()
     let (before, expected) = apply(values, item);
     check-equal(fmt("uppercase %=", before), expected, uppercase(before));
   end;
-end function-test uppercase;
+end test;
 
-define strings function-test lowercase? ()
+define test test-lowercase? ()
   check-true("a", lowercase?('a'));
   check-true("b", lowercase?("abc-$#^^10"));
   check-false("c", lowercase?('A'));
   check-false("d", lowercase?("aBc-$#^^10"));
-end function-test lowercase?;
+end test;
 
-define strings function-test uppercase? ()
+define test test-uppercase? ()
   check-true("a", uppercase?('X'));
   check-true("b", uppercase?("ABC-$#^^10"));
   check-false("c", uppercase?('b'));
   check-false("d", uppercase?("aBc-$#^^10"));
-end function-test uppercase?;
+end test;
 
 
 ////
 //// Stripping
 ////
 
-define strings function-test strip ()
+define test test-strip ()
   for (item in list(#("", ""),
                     #("a", "a"),
                     #("a", " a "),
@@ -432,9 +432,9 @@ define strings function-test strip ()
                 expected,
                 apply(strip, before, strip-args));
   end for;
-end function-test strip;
+end test;
 
-define strings function-test strip-left ()
+define test test-strip-left ()
   for (item in list(#("", ""),
                     #("a", "a"),
                     #("a", " a"),
@@ -445,9 +445,9 @@ define strings function-test strip-left ()
                 expected,
                 apply(strip-left, before, strip-args));
   end for;
-end function-test strip-left;
+end test;
 
-define strings function-test strip-right ()
+define test test-strip-right ()
   for (item in list(#("", ""),
                     #("a", "a"),
                     #("a", "a "),
@@ -458,23 +458,23 @@ define strings function-test strip-right ()
                 expected,
                 apply(strip-right, before, strip-args));
   end for;
-end function-test strip-right;
+end test;
 
 
 ////
 //// Miscellaneous
 ////
 
-define strings function-test whitespace? ()
+define test test-whitespace? ()
   for (char in " \t\n\r\f")
     check-true(fmt("%=", char), whitespace?(char));
   end;
   check-true("a", whitespace?(" \t \n \r \f "));
   check-false("b", whitespace?('a'));
   check-false("c", whitespace?("  b  "));
-end function-test whitespace?;
+end test;
 
-define strings function-test split-lines ()
+define test test-split-lines ()
   check-equal("a", split-lines("a\nb\nc"), #["a", "b", "c"]);
   check-equal("b", split-lines("a\r\nb"), #["a", "b"]);
   check-equal("c", split-lines("a\rb"), #["a", "b"]);
@@ -485,7 +485,7 @@ define strings function-test split-lines ()
   check-equal("h", split-lines("a\r\rb", remove-if-empty?: #t), #["a", "b"]);
   check-equal("i", split-lines("a\n\rb"), #["a", "", "b"]);
   check-equal("j", split-lines("\na"), #["", "a"]);
-end function-test split-lines;
+end test;
 
 ////
 //// Benchmarks
@@ -493,28 +493,28 @@ end function-test split-lines;
 
 define benchmark string-compare-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  for (i from 0 to 10000)
+  benchmark-repeat(iterations: 10000)
     string-compare(string, string);
   end;
-end benchmark string-compare-benchmark;
+end benchmark;
 
 define benchmark string-compare-ic-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  for (i from 0 to 10000)
+  benchmark-repeat(iterations: 10000)
     string-compare(string, string, test: char-compare-ic);
   end;
-end benchmark string-compare-ic-benchmark;
+end benchmark;
 
 define benchmark string-equal?-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  for (i from 1 to 10000)
+  benchmark-repeat(iterations: 10000)
     string-equal?(string, string);
   end;
 end benchmark string-equal?-benchmark;
 
 define benchmark string-equal-ic?-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  for (i from 1 to 10000)
+  benchmark-repeat(iterations: 10000)
     string-equal-ic?(string, string);
   end;
-end benchmark string-equal-ic?-benchmark;
+end benchmark;
