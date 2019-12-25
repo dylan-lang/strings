@@ -493,28 +493,28 @@ end test;
 
 define benchmark string-compare-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  benchmark-repeat(iterations: 10000)
+  benchmark-repeat(iterations: 200)
     string-compare(string, string);
   end;
 end benchmark;
 
 define benchmark string-compare-ic-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  benchmark-repeat(iterations: 10000)
+  benchmark-repeat(iterations: 200)
     string-compare(string, string, test: char-compare-ic);
   end;
 end benchmark;
 
 define benchmark string-equal?-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  benchmark-repeat(iterations: 10000)
+  benchmark-repeat(iterations: 200)
     string-equal?(string, string);
   end;
 end benchmark string-equal?-benchmark;
 
 define benchmark string-equal-ic?-benchmark ()
   let string = make(<string>, size: 10000, fill: 'x');
-  benchmark-repeat(iterations: 10000)
+  benchmark-repeat(iterations: 200)
     string-equal-ic?(string, string);
   end;
 end benchmark;
