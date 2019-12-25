@@ -185,9 +185,9 @@ define test test-graphic? ()
   for (code from 0 to 255)
     let char = as(<character>, code);
     if (char >= ' ' & char <= '~')
-      check-true(fmt("graphic?(%c)", char), graphic?(char));
+      check-true(fmt("graphic?(%=)", code), graphic?(char));
     else
-      check-false(fmt("~graphic?(%c)", char), graphic?(char));
+      check-false(fmt("~graphic?(%=)", code), graphic?(char));
     end;
   end;
 end test;
