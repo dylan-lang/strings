@@ -488,6 +488,18 @@ define test test-split-lines ()
   check-equal("j", split-lines("\na"), #["", "a"]);
 end test;
 
+define test test-find-any ()
+  assert-false(find-any("abc", whitespace?));
+  assert-equal(1, find-any("a b c", whitespace?));
+  assert-equal(3, find-any("a b c", whitespace?, from-end?: #t));
+  assert-equal(0, find-any("a b c", complement(whitespace?)));
+  assert-equal(4, find-any("a b c", complement(whitespace?), from-end?: #t));
+  assert-equal(3, find-any("a b c", whitespace?, start: 2));
+  assert-equal(#f, find-any("a b c", whitespace?, start: 2, end: 2));
+  assert-equal(1, find-any("a b c", whitespace?, end: 2, from-end?: #t));
+  assert-equal(#f, find-any("a b c", whitespace?, start: 2, end: 2, from-end?: #t));
+end test;
+
 ////
 //// Benchmarks
 ////

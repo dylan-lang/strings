@@ -627,15 +627,17 @@ define method strip
           end: epos :: <integer> = string.size)
  => (new-string :: <string>)
   let untest = complement(test);
-  let left = %find-key(string, untest, start, epos);
+  let left = find-any(string, untest, start: start, end: epos);
   if (~left)
     ""
   else
-    let right = %find-key-from-end(string, untest, start, epos) | left;
-    if (left == 0 & right == string.size)
+    // If left is not #f then right will also not be #f.
+    let right :: <integer>
+      = find-any(string, untest, start: start, end: epos, from-end?: #t);
+    if (left == 0 & right == (string.size - 1))
       string
     else
-      copy-sequence(string, start: left, end: right)
+      copy-sequence(string, start: left, end: right + 1)
     end
   end if
 end method strip;
@@ -649,7 +651,8 @@ define method strip-left
           start :: <integer> = 0,
           end: epos :: <integer> = string.size)
  => (new-string :: <string>)
-  let left :: <integer> = %find-key(string, complement(test), start, epos) | epos;
+  let left :: <integer>
+    = find-any(string, complement(test), start: start, end: epos) | epos;
   if (left == 0 & epos == string.size)
     string
   else
@@ -666,11 +669,14 @@ define method strip-right
           start :: <integer> = 0,
           end: epos :: <integer> = string.size)
  => (new-string :: <string>)
-  let right = %find-key-from-end(string, complement(test), start, epos) | start;
-  if (start == 0 & right == string.size)
-    string
-  else
-    copy-sequence(string, start: start, end: right)
+  let right = find-any(string, complement(test), from-end?: #t, start: start, end: epos);
+  case
+    ~right
+      => "";
+    start == 0 & right == (string.size - 1)
+      => string;
+    otherwise
+      => copy-sequence(string, start: start, end: right + 1)
   end
 end method strip-right;
 
@@ -740,32 +746,6 @@ define inline function range-check
 end;
 
 
-define inline function %find-key-from-end
-    (string :: <string>, test :: <function>, start :: <integer>, epos :: <integer>)
- => (key :: false-or(<integer>))
-  iterate loop (i = epos - 1)
-    if (i >= start)
-      xif (test(string[i]),
-           i + 1,
-           loop(i - 1))
-    end
-  end iterate
-end function %find-key-from-end;
-
-
-// Like find-key but accepts start/end args.  Would like to add them to find-key.
-define function %find-key
-    (seq :: <sequence>, test :: <function>, start :: <integer>, epos :: <integer>)
- => (key :: false-or(<integer>))
-  iterate loop (i = start)
-    if (i < epos)
-      xif(test(seq[i]),
-          i,
-          loop(i + 1))
-    end
-  end
-end function %find-key;
-
 // Because every? doesn't have start/end parameters.
 define inline function %every?
     (test :: <function>, string :: <string>, bpos :: <integer>, epos :: <integer>)
@@ -775,3 +755,31 @@ define inline function %every?
         #t)
   end
 end function %every?;
+
+
+// Find the index of the first char in `string` that is a member of `charset`.
+define generic find-any (string :: <string>, test :: <function>,
+                         #key start, end: epos, from-end?)
+ => (index :: false-or(<integer>));
+
+define method find-any (string :: <string>, test :: <function>,
+                        #key start: bpos :: <integer> = 0,
+                             end: epos :: <integer> = string.size,
+                             from-end? :: <boolean>)
+ => (index :: false-or(<integer>))
+  block (return)
+    if (from-end?)
+      for (i from epos - 1 to bpos by -1)
+        if (test(string[i]))
+          return(i);
+        end;
+      end;
+    else
+      for (i from bpos below epos)
+        if (test(string[i]))
+          return(i);
+        end;
+      end;
+    end;
+  end
+end method;

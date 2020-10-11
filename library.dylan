@@ -65,11 +65,11 @@ define module strings
     pad-left,
     pad-right,
 
+    find-any,
     find-substring,
     replace-substrings,
     count-substrings,
 
-    // skip-whitespace -- position-if(whitespace?, <sequence>)
     // override find(...) in common-extensions
 
     split-lines;
