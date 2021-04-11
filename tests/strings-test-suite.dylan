@@ -269,6 +269,7 @@ define test test-find-substring ()
 end test;
 
 define test test-replace-substrings ()
+  check-equal("empty", replace-substrings("", "a", "b"), "");
   check-equal("simple", replace-substrings("zig", "i", "a"), "zag");
   check-equal("count = #f", replace-substrings("zig zig", "i", "a"), "zag zag");
   check-equal("case sensitive", replace-substrings("zIg", "i", "a"), "zIg");
