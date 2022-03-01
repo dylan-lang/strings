@@ -19,7 +19,7 @@ jobs:
       - uses: dylan-lang/install-opendylan@v1
 
       - name: Build strings-test-suite-app
-        run: ./dylan-compiler -build -jobs 3 strings-test-suite-app
+        run: ./dylan-compiler -build strings-test-suite-app
 
       - name: Run strings-test-suite-app
         run: _build/bin/strings-test-suite-app
