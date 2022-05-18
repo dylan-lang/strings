@@ -1,0 +1,11 @@
+{
+    "dependencies": [],
+    "category": "utilities",
+    "dev-dependencies": [
+        "testworks"
+    ],
+    "description": "String manipulation functions",
+    "name": "strings",
+    "version": "1.2.0",
+    "url": "https://github.com/dylan-lang/strings"
+}
