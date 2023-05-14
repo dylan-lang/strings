@@ -2,6 +2,7 @@
     "dependencies": [],
     "category": "utilities",
     "dev-dependencies": [
+        "sphinx-extensions",
         "testworks"
     ],
     "description": "String manipulation functions",
