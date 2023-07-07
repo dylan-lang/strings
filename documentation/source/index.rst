@@ -24,8 +24,16 @@ material can be found there.
     character or a string of characters.  For example, ``lowercase('C')
     => 'c'`` and ``lowercase("Foo") => "foo"``.
 
-  * Functions are case-sensitive by default.  Versions that ignore alphabetic
-    case are named with a trailing "-ic" or "-ic?", which means "ignore case".
+  * Functions are case-sensitive by default.  Versions that ignore
+    alphabetic case are named with a trailing "-ic" or "-ic?", which
+    stands for "ignore case".
+
+  * Open Dylan doesn't yet support Unicode.  When it does, this library
+    will be updated to support it also.
+
+The strings library was originally defined in `DEP-0004
+<http://opendylan.org/proposals/dep-0004.html>`_.  Some additional
+background material can be found there.
 
 
 The strings Module
@@ -1326,12 +1334,11 @@ Miscellaneous Functions
        strip-right(" \tabc\n") => " \tabc"
        strip-right("*foo*", test: curry(\=, '*')) => "*foo"
 
-
 String Functions in Other Libraries
 ===================================
 
-There are a number of functions outside the strings library itself that can be
-used with strings.
+There are a number of functions outside the ``strings`` library itself that can
+be used with strings.
 
 dylan Module
 ------------
