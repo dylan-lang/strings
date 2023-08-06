@@ -1,14 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
-# -- Path setup --------------------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
 
 import os
 import sys
@@ -16,7 +7,6 @@ import sys
 sys.path.insert(0, os.path.abspath('../../_packages/sphinx-extensions/current/src/sphinxcontrib'))
 
 import dylan.domain
-import dylan.themes as dylan_themes
 
 # -- Project information -----------------------------------------------------
 
@@ -25,7 +15,7 @@ copyright = '2022, Carl Gay'
 author = 'Carl Gay'
 
 # The full version, including alpha/beta/rc tags
-release = 'v1.2.0'
+release = 'v2.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -38,9 +28,6 @@ extensions = [
     'sphinx.ext.intersphinx'
 ]
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
@@ -52,22 +39,5 @@ exclude_patterns = ['_build']
 # without depending on this top-level config file.
 primary_domain = 'dylan'
 
-
-# -- Options for HTML output -------------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-html_theme = dylan_themes.get_html_theme_default()
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-html_theme_options = dylan_themes.get_html_theme_options_default()
-
-# Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = [dylan_themes.get_html_theme_path()]
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# sudo pip install -U furo
+html_theme = 'furo'

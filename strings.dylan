@@ -129,43 +129,21 @@ define method whitespace?
 end;
 
 
-// Returns #t if the required argument could be a value returned from
-// 'as-uppercase'.  In other words, if the argument does NOT contain
-// any lowercase characters.
 define sealed generic uppercase?
-    (string-or-character :: <string-or-char>, #key) => (uppercase? :: <boolean>);
+    (char :: <character>) => (uppercase? :: <boolean>);
 
 define inline method uppercase?
-    (char :: <character>, #key) => (b :: <boolean>)
-  ~lowercase-code?(as(<integer>, char))
-end;
-
-define method uppercase?
-    (string :: <string>,
-     #key start :: <integer> = 0,
-          end: epos :: <integer> = string.size)
- => (b :: <boolean>)
-  %every?(uppercase?, string, start, epos)
+    (char :: <character>) => (b :: <boolean>)
+  uppercase-code?(as(<integer>, char))
 end;
 
 
-// Returns #t if the required argument could be a value returned from
-// 'as-lowercase'.  In other words, if the argument does NOT contain
-// any uppercase characters.
 define sealed generic lowercase?
-    (string-or-character :: <string-or-char>, #key) => (lowercase? :: <boolean>);
+    (char :: <character>) => (lowercase? :: <boolean>);
 
 define inline method lowercase?
-    (char :: <character>, #key) => (b :: <boolean>)
-  ~uppercase-code?(as(<integer>, char))
-end;
-
-define method lowercase?
-    (string :: <string>,
-     #key start :: <integer> = 0,
-          end: epos :: <integer> = string.size)
- => (b :: <boolean>)
-  %every?(lowercase?, string, start, epos)
+    (char :: <character>) => (b :: <boolean>)
+  lowercase-code?(as(<integer>, char))
 end;
 
 
