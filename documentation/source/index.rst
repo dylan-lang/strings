@@ -11,8 +11,8 @@ The *strings* library was originally defined in `DEP-0004
 <http://opendylan.org/proposals/dep-0004.html>`_.  Some additional background
 material can be found there.
 
-.. contents::  Contents
-   :local:
+.. toctree::
+   :hidden:
 
 .. note::
 
