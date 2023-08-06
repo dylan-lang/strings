@@ -15,7 +15,7 @@ copyright = '2022, Carl Gay'
 author = 'Carl Gay'
 
 # The full version, including alpha/beta/rc tags
-release = 'v1.2.0'
+release = 'v2.0.0'
 
 
 # -- General configuration ---------------------------------------------------
