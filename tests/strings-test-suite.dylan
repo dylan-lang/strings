@@ -405,16 +405,24 @@ end test;
 
 define test test-lowercase? ()
   check-true("a", lowercase?('a'));
-  check-true("b", lowercase?("abc-$#^^10"));
-  check-false("c", lowercase?('A'));
-  check-false("d", lowercase?("aBc-$#^^10"));
+  check-true("z", lowercase?('z'));
+  check-false("A", lowercase?('A'));
+  check-false("Z", lowercase?('Z'));
+  check-false("@", lowercase?('@'));
+  check-false("[", lowercase?('['));
+  check-false("`", lowercase?('`'));
+  check-false("{", lowercase?('{'));
 end test;
 
 define test test-uppercase? ()
-  check-true("a", uppercase?('X'));
-  check-true("b", uppercase?("ABC-$#^^10"));
-  check-false("c", uppercase?('b'));
-  check-false("d", uppercase?("aBc-$#^^10"));
+  check-true("A", uppercase?('A'));
+  check-true("Z", uppercase?('Z'));
+  check-false("a", uppercase?('a'));
+  check-false("z", uppercase?('z'));
+  check-false("@", uppercase?('@'));
+  check-false("[", uppercase?('['));
+  check-false("`", uppercase?('`'));
+  check-false("{", uppercase?('{'));
 end test;
 
 

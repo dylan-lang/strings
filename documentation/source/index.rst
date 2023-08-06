@@ -671,55 +671,20 @@ Case Conversion Functions
        lowercase!("Hack Dylan!")
        => error, attempt to modify a string constant
 
-.. generic-function:: lowercase?
-   :sealed:
+.. function:: lowercase?
 
-   Returns :drm:`#t` if the argument is entirely composed of
-   non-uppercase characters.
-
-   :signature: lowercase? (string-or-character) => (is-lowercase?)
-   :parameter string-or-character: An instance of ``type-union(<string>, <character>)``.
-   :value is-lowercase?: An instance of :drm:`<boolean>`.
-
-.. method:: lowercase?
-   :specializer: <character>
-   :sealed:
-
-   Returns :drm:`#t` if the given character is not an uppercase alphabetic.
-   Otherwise :drm:`#f` is returned.
+   Returns :drm:`#t` if the argument is a lowercase alphabetic character.
+   Otherwise returns :drm:`#f`.
 
    :signature: lowercase? (character) => (is-lowercase?)
    :parameter character: An instance of :drm:`<character>`.
    :value is-lowercase?: An instance of :drm:`<boolean>`.
-   :example:
 
-     .. code-block:: dylan
+   .. code-block:: dylan
 
-       lowercase?('n') => #t
-       lowercase?('N') => #f
-       lowercase?('*') => #t
-
-.. method:: lowercase?
-   :specializer: <string>
-   :sealed:
-
-   Returns :drm:`#t` if the argument does not contain any uppercase
-   alphabetic characters.  Otherwise :drm:`#f` is returned.
-
-   :signature: lowercase? (string) => (is-lowercase?)
-   :parameter string: An instance of :drm:`<string>`.
-   :parameter #key start: An instance of :drm:`<integer>`, default 0.  The index
-     at which to start checking.
-   :parameter #key end: An instance of :drm:`<integer>`, default
-     ``string.size``.  The index before which to stop checking.
-   :value is-lowercase?: An instance of :drm:`<boolean>`.
-   :example:
-
-     .. code-block:: dylan
-
-       lowercase?("Why me?") => #f
-       lowercase?("Why me?", start: 1) => #t
-       lowercase?("e.e. cummings") => #t
+      lowercase?('n') => #t
+      lowercase?('N') => #f
+      lowercase?('*') => #f
 
 .. generic-function:: uppercase
    :sealed:
@@ -820,54 +785,21 @@ Case Conversion Functions
        uppercase!("Hack Dylan!")
        => error, attempt to modify a string constant
 
-.. generic-function:: uppercase?
-   :sealed:
+.. function:: uppercase?
 
-   Returns :drm:`#t` if the argument is entirely composed of
-   non-lowercase characters.
-
-   :signature: uppercase? (string-or-character) => (is-uppercase?)
-   :parameter string-or-character: An instance of ``type-union(<string>, <character>)``.
-   :value is-uppercase?: An instance of :drm:`<boolean>`.
-
-.. method:: uppercase?
-   :specializer: <character>
-   :sealed:
-
-   Returns :drm:`#t` if the given character is not a lowercase alphabetic.
-   Otherwise :drm:`#f` is returned.
+   Returns :drm:`#t` if the argument is an uppercase alphabetic character.
+   Otherwise returns :drm:`#f`.
 
    :signature: uppercase? (character) => (is-uppercase?)
    :parameter character: An instance of :drm:`<character>`.
    :value is-uppercase?: An instance of :drm:`<boolean>`.
-   :example:
 
-     .. code-block:: dylan
+   .. code-block:: dylan
 
-       uppercase?('T') => #t
-       uppercase?('t') => #f
-       uppercase?('^') => #t
+      uppercase?('T') => #t
+      uppercase?('t') => #f
+      uppercase?('^') => #f
 
-.. method:: uppercase?
-   :specializer: <string>
-   :sealed:
-
-   Returns :drm:`#t` if the argument does not contain any lowercase
-   alphabetic characters.  Otherwise :drm:`#f` is returned.
-
-   :signature: uppercase? (string) => (is-uppercase?)
-   :parameter string: An instance of :drm:`<string>`.
-   :parameter #key start: An instance of :drm:`<integer>`, default 0.  The index
-     at which to start checking.
-   :parameter #key end: An instance of :drm:`<integer>`, default
-     ``string.size``.  The index before which to stop checking.
-   :value is-uppercase?: An instance of :drm:`<boolean>`.
-   :example:
-
-     .. code-block:: dylan
-
-       uppercase?("AbC") => #f
-       uppercase?("ABC") => #t
 
 Comparison Functions
 --------------------
