@@ -16,11 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v2
-      - uses: dylan-lang/install-opendylan@v2
+      - uses: actions/checkout@v4
+        
+      - name: Install Opendylan
+        uses: dylan-lang/install-opendylan@v3
 
+      - name: Update dependencies
+        run: dylan update
+        
       - name: Build strings-test-suite-app
-        run: ./dylan-compiler -build strings-test-suite-app
+        run: dylan build strings-test-suite-app
 
       - name: Run strings-test-suite-app
         run: _build/bin/strings-test-suite-app
