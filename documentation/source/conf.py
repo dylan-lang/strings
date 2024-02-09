@@ -41,3 +41,6 @@ primary_domain = 'dylan'
 
 # sudo pip install -U furo
 html_theme = 'furo'
+
+# Ignore SNI validation errors
+tls_verify = False

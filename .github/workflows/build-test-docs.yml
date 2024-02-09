@@ -1,0 +1,47 @@
+name: Build and test documentation
+
+on:
+  push:
+    # all branches
+    paths:
+      - 'documentation/**/*.rst'
+      - 'documentation/**/conf.py'
+
+  pull_request:
+    # all branches
+    paths:
+      - 'documentation/**/*.rst'
+      - 'documentation/**/conf.py'
+
+  # This enables the Run Workflow button on the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  build-documentation:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link check
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/fraya/dylan-docs
+          options: -v ${{ github.workspace }}/documentation:/docs
+          run: make linkcheck
+
+      - name: Build docs with Furo theme
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/fraya/dylan-docs
+          options: -v ${{ github.workspace }}/documentation:/docs
+          run: make html
+
+      - name: Upload html artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: strings-doc-html
+          path: documentation/build/html/
