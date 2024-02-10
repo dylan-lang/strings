@@ -1,0 +1,5 @@
+*~
+registry/
+_packages/
+_build/
+documentation/build/
