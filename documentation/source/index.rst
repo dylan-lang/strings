@@ -8,8 +8,8 @@ The strings Library
 The *strings* library exports definitions for basic string manipulation.
 
 The *strings* library was originally defined in `DEP-0004
-<http://opendylan.org/proposals/dep-0004.html>`_.  Some additional background
-material can be found there.
+<https://opendylan.org/proposals/dep-0004-strings-library.html>`_. Some
+additional background material can be found there.
 
 .. toctree::
    :hidden:
@@ -32,8 +32,8 @@ material can be found there.
     will be updated to support it also.
 
 The strings library was originally defined in `DEP-0004
-<http://opendylan.org/proposals/dep-0004.html>`_.  Some additional
-background material can be found there.
+<https://opendylan.org/proposals/dep-0004-strings-library.html>`_. Some
+additional background material can be found there.
 
 
 The strings Module
@@ -806,7 +806,8 @@ Comparison Functions
 
 Case insensitive character comparison functions are provided for
 convenience.  (See `DEP-0004
-<http://opendylan.org/proposals/dep-0004.html>`_ for discussion.)
+<https://opendylan.org/proposals/dep-0004-strings-library.html>`_. for
+discussion.)
 
 .. function:: char-compare
 

@@ -6,7 +6,7 @@ This is a strings library for Dylan providing common string and
 character functions.
 
 It was initially described in `DEP-0004
-<http://opendylan.org/proposals/dep-0004.html>`_.
+<https://opendylan.org/proposals/dep-0004-strings-library.html>`_.
 
 It is documented within the `Open Dylan Library Reference
 <http://opendylan.org/documentation/library-reference/>`_.
