@@ -7,10 +7,6 @@ The strings Library
 
 The *strings* library exports definitions for basic string manipulation.
 
-The *strings* library was originally defined in `DEP-0004
-<https://opendylan.org/proposals/dep-0004-strings-library.html>`_. Some
-additional background material can be found there.
-
 .. toctree::
    :hidden:
 
